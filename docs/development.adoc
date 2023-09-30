@@ -1,0 +1,136 @@
+:system-name: HuniFood
+:system-type: Food dispensing
+:author: Gudjon Holm Sigurdsson
+:date-started: 29 september 2023
+:toc-title: Table of Contents
+:toc: right
+:version: 0.1
+:doc-version: 0.1
+:toclevels: 3
+:encoding: utf-8
+:lang: en
+:numbered:
+:xrefstyle: short
+:chapter-signifier:
+:source-highlighter: CodeRay
+:source-highlighter: highlight.js
+:sectlinks: true
+:stylesheet: style.css
+:imagesdir: images
+:include-dir: ../docs
+:stylesdir: {include-dir}/styles
+:shell-caption:
+:include-dir: ..
+ifdef::env-github[]
+:include-dir: ../docs
+endif::[]
+ifdef::env-gitlab[]
+:include-dir: ..
+endif::[]
+ifdef::backend-pdf[]
+:pygments-style: zenburn
+:source-highlighter: pygments
+endif::[]
+ifdef::backend-pdf[]
+[.shell]
+endif::[]
+:doctitle: Development v{doc-version} - {system-name} v{version} 
+
+== Introduction
+
+*{system-name}* is a device that automatically feeds a pet according to a schedule, set by the pet owner, through a web interface.
+
+The device is controlled by an ESP32 micro-controller, which provides a web service for configuring portion sizes, setting schedules, and reporting the device status.
+
+To use the device, mount it on a wall above your pet's bowl, plug it into a 230 VAC outlet and add food to it. Then, use the web interface to configure the portion sizes and set the schedule.
+
+The {system-name} project is a considerable undertaking for me.  To be able to complete it, I need to break it down into smaller, more manageable pieces.
+
+This is a living document that will be updated as I progress through the project.  
+
+[#.small]#_Ps. Naming of the device comes from the fact my dogs name is Huni and the device is intended to give him food_#.
+
+
+== Project Overview
+
+I need to break this project into sections. 
+
+. Figure out what will be needed (System Requirements)
+. Research the different technologies that will be used and create test projects to learn how to use them (Research document)
+. 3D print the parts needed for the device
+. Design the external look of {system-name} by drawing a 3d model of it in Fusion 360 or Sketchup (External Design document)
+. Design a PCB to connect the different components to the micro-controller (PCB Design document)
+.  Write the software
+  * Controller code (Arduino)
+  ** Libraries to communicate with the different sensors and motors.
+  ** The web service (REST API)
+  ** Support for VoffCon
+  * Web interface (Web page)
+
+.Actors who interact with the device
+[cols="^.^10%,.^50%,.^40%", options="header"]
+|===
+|  *Name*   | *Description*                                           | *Knowledge*         
+| pet       | The animal to be fed, usually a cat or a dog.           | Knows where it's food bowl is.  
+| caretaker | A pet caretaker, pet sitter or just að family member who
+              helps taking care of the pet with tasks like feeding it.| Knows how to add food to the device, when the device is running low on food and how to manually feed the pet with one portion of food by pressing a button on the device.
+| owner     | Owner of the pet.  This person determines when 
+              the pet should eat, and how big the portions should be. | Knows all a caretaker knows, and additionally knows how to open a browser, and use a web page.
+|===
+
+== Requirements
+
+System requirements are more abstract and general System requirements are intended for the clients, users, and managers, who need to understand and agree on the goals and expectations of the system. Functional specifications are intended for the developers, testers, and maintainers, who need to know how to build, test, and update the system.
+
+=== System Requirements
+
+The device must be able to dispense food at a set time and amount.  
+
+todo: (remove) General requirements for the system (the what and why, goals and expectations).
+todo: (remove) Audience: Clients, users, and managers.
+
+=== Functional Specification
+
+todo: I need to decide if 
+
+ * the device it's self should supply a web interface
+ * Should we only support VoffCon
+ * Should I write a webpage which is not a VoffCon page, and that webpage uses the devices web service to communicate with it.
+
+todo: (remove) Functional specifications are more concrete and specific. (The how and when of the system). 
+todo: (remove) Audience: Developers, testers, and maintainers, who need to know how to build, test, and update the system.
+
+
+== Research
+
+=== Technologies
+
+==== Micro-controller
+
+We will use a Esp32 micro-controller to control all the components and receive commands from the owner.
+
+==== Sensors
+
+.Portion Load cell
+
+We will use a load cell to measure the amount of food for each portion.  
+
+.Food level load cell
+
+We will also need to detect when the food container is getting empty, that is when is the amount of food in the food container, below a the portion amount.
+
+==== Motors
+
+.Portion motor
+
+We will need a motor to move te food gradually from the food container to the food portion container.
+
+.Dispensing motor
+
+When the portion container contains the correct amount of food, we need to dispense it into the pet's bowl.  We will use this motor to do that.
+
+
+
+
+.An svg image
+image::krappur.svg[Interactive,500,opts=inline,align=center]
