@@ -7,6 +7,7 @@
 :version: 0.1
 :doc-version: 0.1
 :toclevels: 3
+:!chapter-signifier:_
 :encoding: utf-8
 :lang: en
 :numbered:
@@ -14,7 +15,6 @@
 :chapter-signifier:
 :source-highlighter: CodeRay
 :source-highlighter: highlight.js
-:sectlinks: true
 :stylesheet: style.css
 :imagesdir: images
 :include-dir: ../docs
@@ -38,12 +38,13 @@ endif::[]
 
 == Introduction
 
-{system-name} is a device designed to help pet owners feed their pets on time with the correct portion size. The device is powered by 230 VAC and is mounted on a wall above the pet's food bowl. It has a container that can hold food for at least a week and dispenses the food into the pet's bowl at a set time. The schedule is configurable, allowing the pet to be fed multiple times a day with different portion sizes. The device can detect when the food storage container is getting empty and will notify the caretaker when it's time to add more food.
 
-To configure the device, the pet owner can use a web browser to command the device and configure it to dispense the correct amount of food at a specified time, as many times a day as needed. The owner can configure multiple schedules, name them, and select which schedules are active at any given time using a web interface.
+{system-name} is a device designed to help pet owners feed their pets on time with the correct portion size. The device is powered by 230 VAC and is mounted on a wall above the pet's food bowl. It has a storage container that can hold dry food for at least a week and dispenses the food into the pet's bowl at a set time. The schedule is configurable, allowing the pet to be fed multiple times a day with different portion sizes. The device can detect when the storage container is getting low on food and will notify the caretaker when it's time to add more.
 
-The device has an easy-to-use interface with buttons and a small display that allows the pet's caretaker to manually dispense food into the pet's bowl and stop the automatic feeding if needed. This is useful if the pet is not on the premises or if the caretaker wants to feed the pet manually with a different food than normal. It's also possible to cancel the next scheduled feeding but continue with the schedule after that. If there is an active feeding schedule, the onboard display will always show the next scheduled feeding time and the amount of food that will be dispensed.
+To configure the device, the pet owner can use a web browser to command the device and configure it to dispense the correct amount of dry food at a specified time, as many times a day as needed. The owner can configure multiple schedules, name them, and select which schedules are active at any given time using a web interface.
 
+The device has an easy-to-use interface with buttons and a small display that allows the pet's caretaker to manually dispense dry food into the pet's bowl and stop the automatic feeding if needed. This is useful if the pet is not on the premises or if the caretaker wants to feed the pet manually with a different food than normal. It's also possible to cancel the next scheduled feeding but continue with the schedule after that. If there is an active feeding schedule, the onboard display will always show the next scheduled feeding time and the amount of dry food that will be dispensed.
+ 
 Please note that this document is a living document, and will be updated as the project progresses.
 
 [#.small]#_Ps. Naming of the device comes from the fact my dogs name is Huni and the device is intended to give him food_#.
@@ -80,8 +81,8 @@ To make the device presentable, I plan to 3D print the necessary parts and desig
 
 Quick breakdown, _to be visited later_.
 
-. Figure out the requirements for the device (Introduction)
-. Research the different technologies that will be used and create test projects to learn how to use them (Technical Research)
+. Figure out the requirements for the device (<<_introduction>>)
+. Research the different technologies that will be used and create test projects to learn how to use them (<<_technical_research>>)
 . 3D print the parts needed for the device
 . Design the external look of {system-name} by drawing a 3d model of it in Fusion 360 or Sketchup (External Design document)
 . Design a PCB to connect the different components to the micro-controller (PCB Design document)
@@ -103,31 +104,105 @@ By doing this slowly, we should be able to measure the amount of food that has b
 
 === Device Components
 
+The device will be made up of components stated below in this chapter.
+Components unknown to me, will be researched and tested and the results will probably be documented in a separate document, which will be linked to from here.
+
+.Device Components
+[cols="<.^30%,.^40%,.^30%", options="header"]
+|===
+|  *Component*                     | *Purpose*                                                          | *Reading material*         
+| <<_micro_controller>>            | The brain of the device.                                           |   
+| <<_portion_load_cell_amplifier>> | Allow the <<_micro_controller>> to read a value from the <<_portion_load_cell>> and convert it into weight.|
+| <<_portion_load_cell>>           | Weighing the portion container.                                    |
+| <<_storage_load_cell_amplifier>> | Allow the <<_micro_controller>> to read a value from the <<_storage_load_cell>> and convert it into weight.|
+| <<_storage_load_cell>>           | Weighing the storage container.                                    | 
+| <<_portion_motor>>               | Spin the <<_auger>> _(screw conveyor)_.                            | 
+| <<_portion_motor_driver>>        | Allow the <<_micro_controller>> to control the <<_portion_motor>>. |
+| <<_dispensing_motor>>            | Open and close the the <<_dispensing_door>>                        | 
+| <<_power_supply>>                | Provide power to all the devices electrical components.            | 
+| <<_auger>>                       | Move food from storage container to portion container.             |
+| <<_dispensing_door>>             | Dispense the food from the portion container.                      |
+| <<_dispensing_container>>        | Temporarily hold the food to be dispensed.                         |
+| <<_storage_container>>           | Store the food.                                                    |
+|===
+
+
+[discrete]
 ==== Micro-controller
 
 _Esp32_ micro-controller will be used to control all the components and receive commands from the owner.
 
+[discrete]
+==== Portion Load cell Amplifier
+
+A _load cell amplifier_ will be used to amplify the signal from the <<_portion_load_cell>> to a level that the <<_micro_controller>> can read it.
+This allows us to convert the signal into weigth an thus measure the amount of food in the portion container.
+
+[discrete]
+==== Storage Load cell Amplifier
+
+A _load cell amplifier_ will be used to amplify the signal from the <<_storage_load_cell>> to a level that the <<_micro_controller>> can read it.
+This allows us to convert the signal into weigth an thus measure the amount of food left in the storage container.
+
+[discrete]
 ==== Portion Load cell
 
 A _load cell_ will be used to measure the amount of food for each portion.  
 
-==== Food level load cell
+[discrete]
+==== Storage load cell
 
 A _load cell_ will be used to detect, when the food container is getting empty.  
 That is when is the amount of food in the food container is below a the portion amount.
 
+[discrete]
+==== Portion Motor driver
+
+A motor driver to transfer command from the <<_micro_controller>> to the <<_portion_motor>>.
+
+[discrete]
 ==== Portion motor
 
-A Motor to move the food gradually from the food container to the food portion container.
+A Stepper motor to spin a <<_auger>> to move the food gradually from the food container to the food portion container.
 
+[discrete]
 ==== Dispensing motor
 
-When the portion container contains the correct amount of food, we need to dispense it into the pet's bowl.  We will use this motor to do that.
+To dispense the food into the pet's bowl, we will use a servo motor. 
+When the portion container has the correct amount of food, the motor will open the <<_dispensing_door>> to dispense the food into the pet's bowl.
 
+[discrete]
 ==== Power supply
 
 A 230 VAC to 12 VDC power supply will be used to power the device. To distribute the power to the different components, we will probably use a A _buck converter_ or _step-down converter_.
 
+.The voltages probably needed are:
+. *12 VDC* for the <<_portion_motor>>
+. *5 VDC* for the <<_micro_controller>> and some of the other components.
+. *3.3 VDC* is possibly needed for some of the components.
+
+[discrete]
+==== Storage container
+
+A container to hold the food.  This container will hold food for at least a week. The container should be removable for easy cleaning.
+Underneath the container is a <<_storage_load_cell>> to measure the amount of food currently stored in the container.
+
+[discrete]
+==== Dispensing container
+A container to hold the food that will be dispensed into the pet's bowl.  The container should be removable for easy cleaning.
+Underneath the container is a <<_portion_load_cell>> to measure the amount of food currently in the container.
+
+[discrete]
+==== Auger
+
+An auger is a screw conveyor that moves the food slowly from the storage container to the portion container when it spins.
+This component is moved by the <<_portion_motor>>.
+
+[discrete]
+==== Dispensing door
+
+A plate that opens and closes to dispense the food from the portion container into the pet's bowl.
+This component is moved by the <<_dispensing_motor>>.
 
 === Functional Specification
 
@@ -143,9 +218,6 @@ todo: I need to decide if
  * Should we only support VoffCon
  * Should I write a webpage which is not a VoffCon page, and that webpage uses the devices web service to communicate with it.
 
-todo: (remove) Functional specifications are more concrete and specific. (The how and when of the system). 
-todo: (remove) Audience: Developers, testers, and maintainers, who need to know how to build, test, and update the system.
-
-
+todo: add an descriptive image of where most of the components are placed.
 // .An functional descriptive image should be drawn and placed here.
 // image::krappur.svg[Interactive,500,opts=inline,align=center]
