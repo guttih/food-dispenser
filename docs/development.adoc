@@ -25,9 +25,6 @@
 ifdef::env-github[]
 :include-dir: ../docs
 endif::[]
-ifdef::env-gitlab[]
-:include-dir: ..
-endif::[]
 ifdef::backend-pdf[]
 :pygments-style: zenburn
 :source-highlighter: pygments
@@ -186,11 +183,8 @@ a| image::loadCell5kg.png[image]
 [grid=none,frame=none,cols="<.<~,<.^33%"]
 |===
 | A motor driver to transfer command from the <<Microcontroller>> to the <<Portion motor>>.
-a| image::l298NDualBridgeStepperModerDriver.png[image,width=150]
+a| image::l298NDualBridgeStepperModerDriver.png[image]
 |===
-
-
-
 
 
 ==== Portion motor
@@ -204,6 +198,10 @@ a| image::nema17-42HB34F08AB-06.png[image]
 
 
 
+include::portion-motor.adoc[]
+
+'''
+
 ==== Dispensing motor
 
 [grid=none,frame=none,cols="<.<~,<.^33%"]
@@ -213,8 +211,6 @@ a| image::nema17-42HB34F08AB-06.png[image]
 When the portion container has the correct amount of food, the motor will open the <<Dispensing door>> to dispense the food into the pet's bowl.
 a|
 |===
-
-
 
 
 ==== Power supply
