@@ -38,20 +38,11 @@ endif::[]
 
 == Introduction
 
-{system-name} is a device that will help a pet owner to feed his pet on time, with the correct portion size.
+{system-name} is a device designed to help pet owners feed their pets on time with the correct portion size. The device is powered by 230 VAC and is mounted on a wall above the pet's food bowl. It has a container that can hold food for at least a week and dispenses the food into the pet's bowl at a set time. The schedule is configurable, allowing the pet to be fed multiple times a day with different portion sizes. The device can detect when the food storage container is getting empty and will notify the caretaker when it's time to add more food.
 
-The device is a 230 VAC powered device, which is mounted on a wall above a pet's food bowl.  
-It a container which holds the food for at least a week and is able to dispense the food into the pet's bowl at a set time.
-A schedule is configurable, so that the pet can be fed multiple times a day, with different portion sizes.
-The device is able to detect when the food container is getting empty, and will notify the caretaker when it is time to add more food to the device.
+To configure the device, the pet owner can use a web browser to command the device and configure it to dispense the correct amount of food at a specified time, as many times a day as needed. The owner can configure multiple schedules, name them, and select which schedules are active at any given time using a web interface.
 
-To configure the device the pet's owner is able to command the device using a web browser, and configure the device to dispense the correct amount of food at a specified time, as many times a day as needed.  
-Using a web interface, the owner is able to configure many schedules, name them and select which schedules are active at any given time.  
-
-There is an "easy to use" interface on the device, with buttons and a small display to allow the pet's caretaker to manually dispense food into the pet's bowl, and stop the automatic feeding if needed.
-This is useful if the pet is not on the premises or if the owner want's to feed the pet manually with a different food than normal.
-It is also possible to cancel the next scheduled feeding, but continue with the schedule after that.
-If there is an active feeding schedule, onboard display will always show the next scheduled feeding time, and the amount of food that will be dispensed.
+The device has an easy-to-use interface with buttons and a small display that allows the pet's caretaker to manually dispense food into the pet's bowl and stop the automatic feeding if needed. This is useful if the pet is not on the premises or if the caretaker wants to feed the pet manually with a different food than normal. It's also possible to cancel the next scheduled feeding but continue with the schedule after that. If there is an active feeding schedule, the onboard display will always show the next scheduled feeding time and the amount of food that will be dispensed.
 
 Please note that this document is a living document, and will be updated as the project progresses.
 
@@ -66,10 +57,10 @@ Each of them have different roles, responsibilities and knowledge.
 [cols="^.^10%,.^50%,.^40%", options="header"]
 |===
 |  *Name*   | *Description*                                           | *Knowledge*         
-| pet       | The animal to be fed, usually a cat or a dog.           | Knows where it's food bowl is.  
-| caretaker | A pet caretaker, pet sitter or just að family member who
+| Pet       | The animal to be fed, usually a cat or a dog.           | Knows where it's food bowl is.  
+| Caretaker | A pet caretaker, pet sitter or just að family member who
               helps taking care of the pet with tasks like feeding it.| Knows how to add food to the device, when the device is running low on food and how to manually feed the pet with one portion of food by pressing a button on the device.
-| owner     | Owner of the pet.  This person determines when 
+| Owner     | Owner of the pet.  This person determines when 
               the pet should eat, and how big the portions should be. | Knows all a caretaker knows, and additionally knows how to open a browser, and use a web page.
 |===
 
@@ -79,9 +70,11 @@ Each of them have different roles, responsibilities and knowledge.
 
 == Project Plan
 
-The {system-name} project is a considerable undertaking for me, I started it the {date-started} and it will probably take over a year.  To be able to complete it, I need to break it down into smaller, more manageable sections.
-I will be using different technologies, which I have not used before, so I will need to do some research and create test projects to learn how to wire and use them.
-I will also need to design the device, both the external look and the internal PCB. The plan is to 3D print the parts needed for the device, and design the external look of {system-name} by drawing a 3d model of it in Fusion 360 or Sketchup.
+The {system-name} project is a significant undertaking that I started on {date-started}, and it will likely take over a year to complete. To manage the project, I will break it down into smaller, more manageable sections.
+
+Since I will be working with technologies that I have not used before, I will need to research and create test projects to learn how to wire and use them. Additionally, I will need to design the device's external appearance and internal PCB.
+
+To make the device presentable, I plan to 3D print the necessary parts and design the external appearance of {system-name} by creating a 3D model in Fusion 360 or Sketchup.
 
 === Project Sections
 
@@ -101,25 +94,31 @@ Quick breakdown, _to be visited later_.
 
 == Technical Research
 
+Getting the food from the container to the pet's bowl is the main task of the device.  
+To do that, we need to figure out how to measure the amount of food in the container, and how to dispense the food into the pet's bowl.
 
+To move the food from the storage container to the portion container, we use an auger.
+An auger is a screw conveyor that moves the food slowly from the storage container to the portion container.
+By doing this slowly, we should be able to measure the amount of food that has been added to the portion container and stop the auger when the correct amount of food has been added.
 
 === Device Components
 
 ==== Micro-controller
 
-We will use a Esp32 micro-controller to control all the components and receive commands from the owner.
+_Esp32_ micro-controller will be used to control all the components and receive commands from the owner.
 
 ==== Portion Load cell
 
-We will use a load cell to measure the amount of food for each portion.  
+A _load cell_ will be used to measure the amount of food for each portion.  
 
 ==== Food level load cell
 
-We will also need to detect when the food container is getting empty, that is when is the amount of food in the food container, below a the portion amount.
+A _load cell_ will be used to detect, when the food container is getting empty.  
+That is when is the amount of food in the food container is below a the portion amount.
 
 ==== Portion motor
 
-We will need a motor to move te food gradually from the food container to the food portion container.
+A Motor to move the food gradually from the food container to the food portion container.
 
 ==== Dispensing motor
 
