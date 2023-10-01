@@ -1,0 +1,22 @@
+{
+  "name": "food-dispenser",
+  "version": "1.0.0",
+  "description": "A device which automatically dispenses food for pets according to a schedule",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guttih/food-dispenser.git"
+  },
+  "author": "Gudjon Holm Sigurdsson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guttih/food-dispenser/issues"
+  },
+  "homepage": "https://guttih.com/list/project-food-dispenser"
+}
