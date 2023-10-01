@@ -1,9 +1,9 @@
 :system-name: HuniFood
 :system-type: Food dispensing
 :author: Gudjon Holm Sigurdsson
-:date-started: 29 september 2023
+:date-started: 29. september 2023
 :toc-title: Table of Contents
-:toc: right
+:toc: top
 :version: 0.1
 :doc-version: 0.1
 :toclevels: 3
@@ -38,34 +38,29 @@ endif::[]
 
 == Introduction
 
-*{system-name}* is a device that automatically feeds a pet according to a schedule, set by the pet owner, through a web interface.
+{system-name} is a device that will help a pet owner to feed his pet on time, with the correct portion size.
 
-The device is controlled by an ESP32 micro-controller, which provides a web service for configuring portion sizes, setting schedules, and reporting the device status.
+The device is a 230 VAC powered device, which is mounted on a wall above a pet's food bowl.  
+It a container which holds the food for at least a week and is able to dispense the food into the pet's bowl at a set time.
+A schedule is configurable, so that the pet can be fed multiple times a day, with different portion sizes.
+The device is able to detect when the food container is getting empty, and will notify the caretaker when it is time to add more food to the device.
 
-To use the device, mount it on a wall above your pet's bowl, plug it into a 230 VAC outlet and add food to it. Then, use the web interface to configure the portion sizes and set the schedule.
+To configure the device the pet's owner is able to command the device using a web browser, and configure the device to dispense the correct amount of food at a specified time, as many times a day as needed.  
+Using a web interface, the owner is able to configure many schedules, name them and select which schedules are active at any given time.  
 
-The {system-name} project is a considerable undertaking for me.  To be able to complete it, I need to break it down into smaller, more manageable pieces.
+There is an "easy to use" interface on the device, with buttons and a small display to allow the pet's caretaker to manually dispense food into the pet's bowl, and stop the automatic feeding if needed.
+This is useful if the pet is not on the premises or if the owner want's to feed the pet manually with a different food than normal.
+It is also possible to cancel the next scheduled feeding, but continue with the schedule after that.
+If there is an active feeding schedule, onboard display will always show the next scheduled feeding time, and the amount of food that will be dispensed.
 
-This is a living document that will be updated as I progress through the project.  
+Please note that this document is a living document, and will be updated as the project progresses.
 
 [#.small]#_Ps. Naming of the device comes from the fact my dogs name is Huni and the device is intended to give him food_#.
 
+== Interactions
 
-== Project Overview
-
-I need to break this project into sections. 
-
-. Figure out what will be needed (System Requirements)
-. Research the different technologies that will be used and create test projects to learn how to use them (Research document)
-. 3D print the parts needed for the device
-. Design the external look of {system-name} by drawing a 3d model of it in Fusion 360 or Sketchup (External Design document)
-. Design a PCB to connect the different components to the micro-controller (PCB Design document)
-.  Write the software
-  * Controller code (Arduino)
-  ** Libraries to communicate with the different sensors and motors.
-  ** The web service (REST API)
-  ** Support for VoffCon
-  * Web interface (Web page)
+The Actors(living entities) that interact with the device are the pet, the pet's caretaker and the pet's owner.
+Each of them have different roles, responsibilities and knowledge.
 
 .Actors who interact with the device
 [cols="^.^10%,.^50%,.^40%", options="header"]
@@ -78,18 +73,70 @@ I need to break this project into sections.
               the pet should eat, and how big the portions should be. | Knows all a caretaker knows, and additionally knows how to open a browser, and use a web page.
 |===
 
-== Requirements
 
-System requirements are more abstract and general System requirements are intended for the clients, users, and managers, who need to understand and agree on the goals and expectations of the system. Functional specifications are intended for the developers, testers, and maintainers, who need to know how to build, test, and update the system.
 
-=== System Requirements
 
-The device must be able to dispense food at a set time and amount.  
 
-todo: (remove) General requirements for the system (the what and why, goals and expectations).
-todo: (remove) Audience: Clients, users, and managers.
+== Project Plan
+
+The {system-name} project is a considerable undertaking for me, I started it the {date-started} and it will probably take over a year.  To be able to complete it, I need to break it down into smaller, more manageable sections.
+I will be using different technologies, which I have not used before, so I will need to do some research and create test projects to learn how to wire and use them.
+I will also need to design the device, both the external look and the internal PCB. The plan is to 3D print the parts needed for the device, and design the external look of {system-name} by drawing a 3d model of it in Fusion 360 or Sketchup.
+
+=== Project Sections
+
+Quick breakdown, _to be visited later_.
+
+. Figure out the requirements for the device (Introduction)
+. Research the different technologies that will be used and create test projects to learn how to use them (Technical Research)
+. 3D print the parts needed for the device
+. Design the external look of {system-name} by drawing a 3d model of it in Fusion 360 or Sketchup (External Design document)
+. Design a PCB to connect the different components to the micro-controller (PCB Design document)
+.  Write the software
+  * Controller code (Arduino)
+  ** Libraries to communicate with the different sensors and motors.
+  ** The web service (REST API)
+  ** Support for VoffCon
+  * Web interface (Web page)
+
+== Technical Research
+
+
+
+=== Device Components
+
+==== Micro-controller
+
+We will use a Esp32 micro-controller to control all the components and receive commands from the owner.
+
+==== Portion Load cell
+
+We will use a load cell to measure the amount of food for each portion.  
+
+==== Food level load cell
+
+We will also need to detect when the food container is getting empty, that is when is the amount of food in the food container, below a the portion amount.
+
+==== Portion motor
+
+We will need a motor to move te food gradually from the food container to the food portion container.
+
+==== Dispensing motor
+
+When the portion container contains the correct amount of food, we need to dispense it into the pet's bowl.  We will use this motor to do that.
+
+==== Power supply
+
+A 230 VAC to 12 VDC power supply will be used to power the device. To distribute the power to the different components, we will probably use a A _buck converter_ or _step-down converter_.
+
 
 === Functional Specification
+
+The Technical research needs to be done to figure out, which components to use and how to use them, before we can write the functional specification.
+
+.Notes
+
+The device will not provide a web interface, but will instead provide a REST API, which can be used by a web page to configure it.
 
 todo: I need to decide if 
 
@@ -101,36 +148,5 @@ todo: (remove) Functional specifications are more concrete and specific. (The ho
 todo: (remove) Audience: Developers, testers, and maintainers, who need to know how to build, test, and update the system.
 
 
-== Research
-
-=== Technologies
-
-==== Micro-controller
-
-We will use a Esp32 micro-controller to control all the components and receive commands from the owner.
-
-==== Sensors
-
-.Portion Load cell
-
-We will use a load cell to measure the amount of food for each portion.  
-
-.Food level load cell
-
-We will also need to detect when the food container is getting empty, that is when is the amount of food in the food container, below a the portion amount.
-
-==== Motors
-
-.Portion motor
-
-We will need a motor to move te food gradually from the food container to the food portion container.
-
-.Dispensing motor
-
-When the portion container contains the correct amount of food, we need to dispense it into the pet's bowl.  We will use this motor to do that.
-
-
-
-
-.An svg image
-image::krappur.svg[Interactive,500,opts=inline,align=center]
+// .An functional descriptive image should be drawn and placed here.
+// image::krappur.svg[Interactive,500,opts=inline,align=center]

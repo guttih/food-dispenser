@@ -17,7 +17,7 @@ Please note that the device is designed for use with dry food only.
 
 ## Design and Construction
 The development documents and the requirements specification documents can be
-found in the `docs` folder. and the first development document to read would be the [development].
+found in the `docs` folder. and the first development document to read would be the [development] document.
 
 
 ### Project status Status
