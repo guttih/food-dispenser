@@ -9,6 +9,6 @@ void setup()
 
 void loop()
 {
-    Serial.println( String( "Dispensing motor research " ) +  String( i++ ) );
+    Serial.println( String( "Dispensing motor which will open the dispensing door " ) +  String( i++ ) );
     delay( 1000 );
 }

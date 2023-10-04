@@ -186,6 +186,8 @@ a| image::loadCell5kg.png[image]
 a| image::l298NDualBridgeStepperModerDriver.png[image]
 |===
 
+* Part in my database: http://parts.guttih.com/parts/view/5bfa9d4fec065a5ac27868fd
+* Online tutorial: https://microcontrollerslab.com/stepper-motor-l298n-motor-driver-esp32-tutorial/
 
 ==== Portion motor
 
