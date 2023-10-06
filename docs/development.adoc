@@ -272,9 +272,14 @@ todo: I need to decide if
  * Should I write a webpage which is not a VoffCon page, and that webpage uses the devices web service to communicate with it.
 
 todo: add an descriptive image of where most of the components are placed.
-// .An functional descriptive image should be drawn and placed here.
 
-// image::krappur.svg[Interactive,500,opts=inline,align=center]
+An functional descriptive image should be drawn and placed here.
+ 
+ 
+ stuff do do
+ 
+
+ image::idea.svg[Interactive,500,opts=inline,align=center]
 
 
 
