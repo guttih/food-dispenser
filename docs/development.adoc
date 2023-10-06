@@ -47,6 +47,16 @@ Please note that this document is a living document, and will be updated as the 
 
 [#.small]#_Ps. Naming of the device comes from the fact my dogs name is Huni and the device is intended to give him food_#.
 
+#### Visualization
+
+A drawing of how the device could look like.  Here we try to visualize the different components and how they interact with each other.
+
+.Drawing of the most important components
+image::idea.svg[Interactive,800,opts=inline,align=center]
+
+
+
+
 == Interactions
 
 The Actors(living entities) that interact with the device are the pet, the pet's caretaker and the pet's owner.
@@ -271,16 +281,4 @@ todo: I need to decide if
  * Should we only support VoffCon
  * Should I write a webpage which is not a VoffCon page, and that webpage uses the devices web service to communicate with it.
 
-todo: add an descriptive image of where most of the components are placed.
-
-An functional descriptive image should be drawn and placed here.
  
- 
- stuff do do
- 
-
- image::idea.svg[Interactive,500,opts=inline,align=center]
-
-
-
-
