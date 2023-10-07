@@ -44,7 +44,6 @@ I will create a platformIO project that will control a stepper motor. The steppe
 [.image]
 
 .ESP32 code
-+
 [source,cpp]
 ----
 #include <Arduino.h>
