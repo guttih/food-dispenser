@@ -79,13 +79,15 @@ The table below provides a breakdown of the calculations used to obtain the valu
 .Volume calculations
 [cols=",,", options="header"]
 |=== 
-| Property                  | Formula                                      | Calculation
-| Food density              | stem:[Fd = "food" / "water" ]                | stem:[{990  g}  / {2000 g}  =0.495 " g/cm"^3]
-| Food factor               | stem:[Ff = "water" / "food" ]                | stem:[{2000 g}  / { 990 g}  \approx "2.02 g/cm"^3]
-| Huni's weekly portion     | stem:[ "Mpw" = "portion" * "rate" * "days" ] | stem:[170g * 2 * 7 = "2380 g"]
-| Required storage mass     | stem:[ "Mw" ]                                | stem:["4000" g]
-| Storage container volume  | stem:[ "Vs" = "Mw" * "Ff" ]                  | stem:["4000 * 2.02 = 8080 cm"^3]
-| Portion container volume  | stem:[ "Vp" = "Vs" / ( rate * days ) ]              | stem:[8080 / (2 * 7) \approx 577 " cm"^3]
+| Property                      | Formula                                      | Calculation
+| Food density                  | stem:[Fd = "food" / "water" ]                | stem:[{990  g}  / {2000 g}  =0.495 " g/cm"^3]
+| Food factor                   | stem:[Ff = "water" / "food" ]                | stem:[{2000 g}  / { 990 g}  \approx "2.02 g/cm"^3]
+| Huni's weekly portion         | stem:[ "Mpw" = "portion" * "rate" * "days" ] | stem:[170g * 2 * 7 = "2380 g"]
+| Required storage mass         | stem:[ "Mw" ]                                | stem:["4000" g]
+| Storage container volume      | stem:[ "Vs" = "Mw" * "Ff" ]                  | stem:["4000 * 2.02 = 8080 cm"^3]
+| Portion container volume      | stem:[ "Vp" = "Vs" / ( rate * days ) ]       | stem:[8080 / (2 * 7) \approx 577 " cm"^3]
+| Example storage container box | stem:[ "Ves" = "width" * "height" * "depth" ] | stem:[40 cm * 17 cm * 12 cm = 8160 cm^3 ]
+| Example portion container box | stem:[ "Vep" = "width" * "height" * "depth" ] | stem:[6 cm * 8 cm * 12 cm = 576 cm^3 ]
 |=== 
 
 
