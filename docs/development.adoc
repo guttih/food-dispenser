@@ -25,9 +25,6 @@
 ifdef::env-github[]
 :include-dir: ../docs
 endif::[]
-ifdef::env-gitlab[]
-:include-dir: ..
-endif::[]
 ifdef::backend-pdf[]
 :pygments-style: zenburn
 :source-highlighter: pygments
@@ -35,8 +32,10 @@ endif::[]
 ifdef::backend-pdf[]
 [.shell]
 endif::[]
+:stem:
 :doctitle: Development v{doc-version} - {system-name} v{version} 
 
+// stem documentation https://katex.org/docs/supported#gdef
 == Introduction
 
 
@@ -50,6 +49,46 @@ Please note that this document is a living document, and will be updated as the 
 
 [#.small]#_Ps. Naming of the device comes from the fact my dogs name is Huni and the device is intended to give him food_#.
 
+#### Visualization
+
+A drawing of how the device could look like.  Here we try to visualize the different components and how they interact with each other.
+
+.Drawing of the most important components
+image::idea.svg[Interactive,800,opts=inline,align=center]
+
+#### specification
+
+.Container sizes
+
+To determine the suitable container size, I conducted an experiment. Initially, I placed a bowl on a scale, calibrated the scale to zero, and then filled the bowl with water. The result was that the bowl held precisely 2000 grams of water.
+Following that, I repeated the process using Huni's pet food and found that the bowl had a capacity of 990 grams of food.
+
+The fundamental idea here is that by dividing the weight of the food by the weight of the water in a container of the same size, we are essentially calculating the food's density relative to water within that specific container. This calculation assists in determining the necessary container volume.
+
+We acknowledge that to store one liter of water, approximately 1000 cubic centimeters (cm³) of space are required.
+
+I've set the requirement that the storage container must be capable of holding at least a week's worth of food.
+Huni is fed twice per day, with each serving weighing 170 grams, totaling 340 grams per day. Therefore, the weekly volume required is 2380 grams/week.
+
+To be conservative, we'll round that up to 4000 grams to accommodate for larger animals. In other words, we need the storage container to accommodate 4000 grams of food. To store this 4000 grams of food, a container with a volume of 8080 cm³ is required.
+
+Since we will be replenishing the food 14 times a week, the portion container must have a minimum volume of 577 cm³.
+
+The table below provides a breakdown of the calculations used to obtain the values mentioned in the preceding text.
+
+.Volume calculations
+[cols=",,", options="header"]
+|=== 
+| Property                  | Formula                                      | Calculation
+| Food density              | stem:[Fd = "food" / "water" ]                | stem:[{990  g}  / {2000 g}  =0.495 " g/cm"^3]
+| Food factor               | stem:[Ff = "water" / "food" ]                | stem:[{2000 g}  / { 990 g}  \approx "2.02 g/cm"^3]
+| Huni's weekly portion     | stem:[ "Mpw" = "portion" * "rate" * "days" ] | stem:[170g * 2 * 7 = "2380 g"]
+| Required storage mass     | stem:[ "Mw" ]                                | stem:["4000" g]
+| Storage container volume  | stem:[ "Vs" = "Mw" * "Ff" ]                  | stem:["4000 * 2.02 = 8080 cm"^3]
+| Portion container volume  | stem:[ "Vp" = "Vs" / ( rate * days ) ]              | stem:[8080 / (2 * 7) \approx 577 " cm"^3]
+|=== 
+
+
 == Interactions
 
 The Actors(living entities) that interact with the device are the pet, the pet's caretaker and the pet's owner.
@@ -58,8 +97,9 @@ Each of them have different roles, responsibilities and knowledge.
 .Actors who interact with the device
 [cols="^.^10%,.^50%,.^40%", options="header"]
 |===
-|  *Name*   | *Description*                                           | *Knowledge*         
-| Pet       | The animal to be fed, usually a cat or a dog.           | Knows where it's food bowl is.  
+|  *Name*   | *Description*                                            | *Knowledge*         
+| Pet       | The animal to be fed, usually a cat or a dog.            | Knows where it's food bowl is.  
+| Huni      | My dogs name is Huni and he is of the type Border Collie.| Knows all a pet knows.
 | Caretaker | A pet caretaker, pet sitter or just að family member who
               helps taking care of the pet with tasks like feeding it.| Knows how to add food to the device, when the device is running low on food and how to manually feed the pet with one portion of food by pressing a button on the device.
 | Owner     | Owner of the pet.  This person determines when 
@@ -93,16 +133,18 @@ Quick breakdown, _to be visited later_.
 
 == Technical Research
 
-Getting the food from the container to the pet's bowl is the main task of the device.  
-To do that, we need to figure out how to measure the amount of food in the container, and how to dispense the food into the pet's bowl.
+The primary function of the device is to accurately dispense the appropriate amount of food into a pet's bowl. 
+Achieving this requires us to address two key aspects: measuring each food portion and effectively transferring it into the pet's bowl.
 
-To move the food from the storage container to the portion container, we use an auger.
-An auger is a screw conveyor that moves the food slowly from the storage container to the portion container.
-By doing this slowly, we should be able to measure the amount of food that has been added to the portion container and stop the auger when the correct amount of food has been added.
+To facilitate the seamless movement of food from the storage container to the portion container, we employ an auger. 
+The auger operates as a screw conveyor, allowing for a gradual transfer of food from the storage container to the portion container.
+This controlled process enables us to measure the exact quantity of food added to the portion container and stop the auger when the desired amount is reached.
 
-=== Device Components
+Once this is accomplished, the food can be dispensed from the portion container into the pet's bowl.
 
-The device will consist of several components, which will be listed in this chapter. If there are any components that I am not familiar with, I will conduct research and testing to become familiar with them. The results of the research and testing will be documented in a separate document, which will be linked to from this chapter.
+=== Components of the Device
+
+This chapter outlines the various components that will make up the device. In cases where unfamiliar components are involved, thorough research and testing will be conducted to gain a comprehensive understanding of them. The outcomes of this research and testing will be documented in a separate report, which will be linked to from this chapter."
 
 .Device Components
 [cols="<.^25%,.^12%,.^~", options="header"]
@@ -175,7 +217,7 @@ a| image::loadCell1kg.png[image]
 |===
 | A _load cell_ will be used to detect, when the food container is getting empty.  
 
-That is when is the amount of food in the food container is below a the portion amount.
+That is, when is the amount of food in the food container is below a the portion amount.
 a| image::loadCell5kg.png[image]
 |===
 
@@ -186,12 +228,11 @@ a| image::loadCell5kg.png[image]
 [grid=none,frame=none,cols="<.<~,<.^33%"]
 |===
 | A motor driver to transfer command from the <<Microcontroller>> to the <<Portion motor>>.
-a| image::l298NDualBridgeStepperModerDriver.png[image,width=150]
+a| image::l298NDualBridgeStepperModerDriver.png[image]
 |===
 
-
-
-
+* Part in my database: http://parts.guttih.com/parts/view/5bfa9d4fec065a5ac27868fd
+* Online tutorial: https://microcontrollerslab.com/stepper-motor-l298n-motor-driver-esp32-tutorial/
 
 ==== Portion motor
 
@@ -204,6 +245,10 @@ a| image::nema17-42HB34F08AB-06.png[image]
 
 
 
+include::portion-motor.adoc[]
+
+'''
+
 ==== Dispensing motor
 
 [grid=none,frame=none,cols="<.<~,<.^33%"]
@@ -213,8 +258,6 @@ a| image::nema17-42HB34F08AB-06.png[image]
 When the portion container has the correct amount of food, the motor will open the <<Dispensing door>> to dispense the food into the pet's bowl.
 a|
 |===
-
-
 
 
 ==== Power supply
@@ -273,11 +316,4 @@ todo: I need to decide if
  * Should we only support VoffCon
  * Should I write a webpage which is not a VoffCon page, and that webpage uses the devices web service to communicate with it.
 
-todo: add an descriptive image of where most of the components are placed.
-// .An functional descriptive image should be drawn and placed here.
-
-// image::krappur.svg[Interactive,500,opts=inline,align=center]
-
-
-
-
+ 

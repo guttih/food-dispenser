@@ -1,0 +1,50 @@
+:author: Gudjon Holm Sigurdsson
+:date-started: 29. september 2023
+:toc-title: Table of Contents
+:toc: top
+:version: 1.0
+:tocLevels: 2
+:encoding: utf-8
+:lang: en
+:xrefstyle: full
+//To generate id's like github does.
+:idprefix:
+:idseparator: -
+:chapter-signifier:
+:source-highlighter: CodeRay
+:source-highlighter: highlight.js
+:stylesheet: style.css
+:imagesdir: images
+:include-dir: ../docs
+:stylesdir: {include-dir}/styles
+:shell-caption:
+:include-dir: ..
+ifdef::env-github[]
+:include-dir: ../docs
+endif::[]
+ifdef::backend-pdf[]
+:pygments-style: zenburn
+:source-highlighter: pygments
+endif::[]
+ifdef::backend-pdf[]
+[.shell]
+endif::[]
+
+===== Research - Controlling stepper motors
+
+I will create a platformIO project that will control a stepper motor. The stepper motor will be controlled by esp32 using the arduino framework.
+
+.Components used in the research
+- Microcontroller _Esp32 dev module_
+- stepper motor driver _A4988_
+- Nema 17 stepper motor _SL42STH40-1684A_
+- 5V power supply
+
+.Wiring diagram
+[.image]
+
+.ESP32 code
+[source,cpp]
+----
+#include <Arduino.h>
+----
